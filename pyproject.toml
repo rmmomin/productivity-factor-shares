@@ -1,0 +1,31 @@
+[project]
+name = "prod-wage-profits"
+version = "0.1.0"
+description = "Replication kit for productivity and factor shares analysis"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "requests>=2.28.0",
+    "statsmodels>=0.14.0",
+    "matplotlib>=3.7.0",
+    "Pillow>=10.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+]
+
+[project.scripts]
+prod-wage-profits = "src.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
