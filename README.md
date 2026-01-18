@@ -90,6 +90,8 @@ pytest tests/ -v
 
 ### Results
 
+- `results/stationarity_tests.json`: Stationarity test results in JSON format
+- `results/stationarity_tests.csv`: Stationarity test results in CSV format
 - `results/regression_summary.json`: Regression results in JSON format
 - `results/regression_summary.csv`: Regression results in CSV format
 
@@ -120,6 +122,28 @@ Standard errors are computed using the Newey-West HAC estimator with 4 lags (app
 ### Binscatter
 
 Binscatter plots divide the x-variable into 20 quantile bins and plot the mean of y within each bin, with error bars showing ±1 standard error.
+
+## Stationarity Analysis
+
+Valid regression inference requires that time series variables be stationary (i.e., have stable statistical properties over time). Non-stationary variables can lead to spurious regressions with inflated t-statistics and misleading R² values.
+
+We test stationarity using two complementary approaches:
+
+1. **Augmented Dickey-Fuller (ADF) test**: Tests the null hypothesis of a unit root (non-stationarity). A p-value < 0.05 rejects the null, supporting stationarity.
+
+2. **KPSS test**: Tests the null hypothesis of stationarity. A p-value > 0.05 fails to reject the null, supporting stationarity.
+
+A variable is considered stationary if both conditions are met: ADF rejects (p < 0.05) AND KPSS fails to reject (p > 0.05).
+
+### Stationarity Test Results
+
+| Variable | ADF Stat | ADF p-value | KPSS Stat | KPSS p-value | Stationary |
+|----------|----------|-------------|-----------|--------------|------------|
+| `prod_yoy_pct` | -3.17 | 0.0217 | 0.35 | 0.10 | Yes |
+| `d_profit_share_yoy_pp` | -4.85 | 0.0000 | 0.09 | 0.10 | Yes |
+| `d_wage_share_yoy_pp` | -3.58 | 0.0062 | 0.33 | 0.10 | Yes |
+
+All three transformed variables used in the regressions are stationary, validating the use of OLS regression for inference.
 
 ## Results
 
@@ -169,6 +193,7 @@ prod-wage-profits/
 │   ├── fred_client.py      # FRED API client with caching
 │   ├── build_dataset.py    # Data transformations
 │   ├── analysis.py         # OLS regression with HAC
+│   ├── stationarity.py     # ADF and KPSS stationarity tests
 │   ├── plots.py            # Scatter and binscatter plots
 │   └── cli.py              # Command-line interface
 ├── data/

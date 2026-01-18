@@ -1,0 +1,35 @@
+{
+  "prod_yoy_pct": {
+    "variable": "prod_yoy_pct",
+    "adf_stat": -3.1720327378819833,
+    "adf_pvalue": 0.021661688754281722,
+    "adf_critical_1pct": -3.452789844280995,
+    "adf_critical_5pct": -2.871421512222641,
+    "kpss_stat": 0.3476321079365916,
+    "kpss_pvalue": 0.09972753968250361,
+    "kpss_critical_5pct": 0.463,
+    "is_stationary": true
+  },
+  "d_profit_share_yoy_pp": {
+    "variable": "d_profit_share_yoy_pp",
+    "adf_stat": -4.85102527297253,
+    "adf_pvalue": 4.339470343566164e-05,
+    "adf_critical_1pct": -3.452789844280995,
+    "adf_critical_5pct": -2.871421512222641,
+    "kpss_stat": 0.08534553808786782,
+    "kpss_pvalue": 0.1,
+    "kpss_critical_5pct": 0.463,
+    "is_stationary": true
+  },
+  "d_wage_share_yoy_pp": {
+    "variable": "d_wage_share_yoy_pp",
+    "adf_stat": -3.5757035012159717,
+    "adf_pvalue": 0.006242878619815675,
+    "adf_critical_1pct": -3.452789844280995,
+    "adf_critical_5pct": -2.871421512222641,
+    "kpss_stat": 0.3251790398795423,
+    "kpss_pvalue": 0.1,
+    "kpss_critical_5pct": 0.463,
+    "is_stationary": true
+  }
+}

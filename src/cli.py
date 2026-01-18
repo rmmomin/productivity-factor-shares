@@ -7,6 +7,7 @@ from pathlib import Path
 from .analysis import export_results, run_regressions
 from .build_dataset import build_analysis_dataset
 from .plots import create_all_plots
+from .stationarity import export_stationarity_results, run_stationarity_tests
 
 
 def run_all(
@@ -34,6 +35,17 @@ def run_all(
     print(f"  Dataset shape: {df.shape}")
     print(f"  Date range: {df['date'].min()} to {df['date'].max()}")
 
+    print("\nRunning stationarity tests...")
+    stationarity_results = run_stationarity_tests(df)
+    for var, result in stationarity_results.items():
+        status = "stationary" if result.is_stationary else "non-stationary"
+        print(f"  {var}: ADF p={result.adf_pvalue:.4f}, KPSS p={result.kpss_pvalue:.4f} -> {status}")
+
+    print("\nExporting stationarity results...")
+    stat_json_path, stat_csv_path = export_stationarity_results(stationarity_results, output_dir=results_dir)
+    print(f"  JSON: {stat_json_path}")
+    print(f"  CSV: {stat_csv_path}")
+
     print("\nRunning regressions...")
     results = run_regressions(df, maxlags=4)
     for name, result in results.items():
@@ -57,7 +69,8 @@ def run_all(
     print("\nPipeline complete!")
     print(f"\nOutputs:")
     print(f"  Processed data: {output_dir}/dshares_vs_prod.csv")
-    print(f"  Regression results: {results_dir}/")
+    print(f"  Stationarity tests: {results_dir}/stationarity_tests.csv")
+    print(f"  Regression results: {results_dir}/regression_summary.csv")
     print(f"  Figures: {figures_dir}/")
 
 
